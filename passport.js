@@ -13,9 +13,12 @@ passport.use(new LocalStrategy(
         usernameField: 'name',
         passwordField: 'password',
     },
-    function (name, password, cb){
-        console.log(name + " x " + password);
-        return User.findOne({where:{name,password}})
+    function (name, password, cb){        
+        return User.findOne(
+                {
+                    where:{name,password}
+                }
+            )
             .then(user => {                
                 if(!user)
                 {
@@ -30,5 +33,24 @@ passport.use(new LocalStrategy(
                 console.log("error in passport: " + err);
                 return cb(err)
             });
+    }
+));
+
+passport.use(new JWTStrategy(
+    {
+        jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+        secretOrKey: '1612018_TranQuocAnh',
+    },
+    function (jwtPayload, cb){
+        console.log("Hello");
+        return User.findByPk(jwtPayload.id)
+            .then(user=>{
+                console.log("success");
+                return cb(null, user);
+            })
+            .catch(err=>{
+                console.log("err");
+                return cb(err);
+            })
     }
 ));

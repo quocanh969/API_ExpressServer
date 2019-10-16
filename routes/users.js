@@ -50,8 +50,7 @@ router.post('/register', function(req, res, next) {
 router.post('/login', function(req, res, next) {  
   passport.authenticate('local', {session: false}, (err, user, info)=>{        
     if(err || !user)
-    {   
-      console.log(user);
+    {         
         return res.status(400).json({
             message:'Something is not right',
             user: user,
@@ -64,7 +63,7 @@ router.post('/login', function(req, res, next) {
             res.send(err);
         }
         let payload = {id:user.id};
-        const token = jwt.sign(payload,'your_jwt_serect');
+        const token = jwt.sign(payload,'1612018_TranQuocAnh');
         return res.json({user,token,info});
     });
   })(req,next);
