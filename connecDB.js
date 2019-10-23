@@ -2,9 +2,10 @@
 const Sequelize = require('sequelize');
 
 const sequelize = new Sequelize({
-    database: 'users_db',
-    username: 'root',
-    password: '1234',
+    database: '38LNBrTDLP',
+    host: 'remotemysql.com',
+    username: '38LNBrTDLP',
+    password: 'UfpIhJy3qY',
     dialect: 'mysql',
   });
 

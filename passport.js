@@ -22,7 +22,7 @@ passport.use(new LocalStrategy(
             .then(user => {                
                 if(!user)
                 {
-                    return cb(null, false, {message: 'Incorrect name and password'});
+                    return cb(null, false, {message: 'Incorrect name or password'});
                 }
                 else
                 {   
@@ -41,15 +41,12 @@ passport.use(new JWTStrategy(
         jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
         secretOrKey: '1612018_TranQuocAnh',
     },
-    function (jwtPayload, cb){
-        console.log("Hello");
+    function (jwtPayload, cb){        
         return User.findByPk(jwtPayload.id)
-            .then(user=>{
-                console.log("success");
+            .then(user=>{                
                 return cb(null, user);
             })
-            .catch(err=>{
-                console.log("err");
+            .catch(err=>{                
                 return cb(err);
             })
     }
